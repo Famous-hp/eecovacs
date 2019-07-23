@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.IPictureDao" >
+  <resultMap id="BaseResultMap" type="com.entity.Picture" >
+    <id column="pic_id" property="picId" jdbcType="INTEGER" />
+    <result column="src" property="src" jdbcType="VARCHAR" />
+    <result column="cid" property="cid" jdbcType="INTEGER" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="ground_id" property="groundId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pic_id, src, cid, product_id, ground_id
+  </sql>
+
+  <select id="selectByID" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from picture
+    <where>
+      <if test="cid != null">
+        AND cid = #{cid}
+      </if>
+      <if test="product_id != null">
+        AND product_id = #{product_id}
+      </if>
+      <if test="ground_id != null">
+        AND ground_id = #{ground_id}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from picture
+    where pic_id = #{picId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from picture
+    where pic_id = #{picId,jdbcType=INTEGER}
+  </delete>
+
+  <delete id="deleteByPrid" parameterType="java.lang.Integer" >
+    delete from picture
+    where product_id = #{prid,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.entity.Picture" >
+    insert into picture (pic_id, src, cid, 
+      product_id, ground_id)
+    values (#{picId,jdbcType=INTEGER}, #{src,jdbcType=VARCHAR}, #{cid,jdbcType=INTEGER}, 
+      #{productId,jdbcType=INTEGER}, #{groundId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Picture" >
+    insert into picture
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="picId != null" >
+        pic_id,
+      </if>
+      <if test="src != null" >
+        src,
+      </if>
+      <if test="cid != null" >
+        cid,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="groundId != null" >
+        ground_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="picId != null" >
+        #{picId,jdbcType=INTEGER},
+      </if>
+      <if test="src != null" >
+        #{src,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null" >
+        #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="groundId != null" >
+        #{groundId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.Picture" >
+    update picture
+    <set >
+      <if test="src != null" >
+        src = #{src,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null" >
+        cid = #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="groundId != null" >
+        ground_id = #{groundId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where pic_id = #{picId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.Picture" >
+    update picture
+    set src = #{src,jdbcType=VARCHAR},
+      cid = #{cid,jdbcType=INTEGER},
+      product_id = #{productId,jdbcType=INTEGER},
+      ground_id = #{groundId,jdbcType=INTEGER}
+    where pic_id = #{picId,jdbcType=INTEGER}
+  </update>
+</mapper>

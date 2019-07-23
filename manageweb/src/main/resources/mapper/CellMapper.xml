@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.ICellDao" >
+  <resultMap id="BaseResultMap" type="com.entity.Cell" >
+    <id column="cell_id" property="cellId" jdbcType="INTEGER" />
+    <result column="cell_name" property="cellName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cell_id, cell_name
+  </sql>
+
+  <select id="selectAllCell" resultMap="BaseResultMap" >
+    select * from cell
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from cell
+    where cell_id = #{cellId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from cell
+    where cell_id = #{cellId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.entity.Cell" >
+    insert into cell (cell_id, cell_name)
+    values (#{cellId,jdbcType=INTEGER}, #{cellName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Cell" >
+    insert into cell
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cellId != null" >
+        cell_id,
+      </if>
+      <if test="cellName != null" >
+        cell_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cellId != null" >
+        #{cellId,jdbcType=INTEGER},
+      </if>
+      <if test="cellName != null" >
+        #{cellName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.Cell" >
+    update cell
+    <set >
+      <if test="cellName != null" >
+        cell_name = #{cellName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cell_id = #{cellId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.Cell" >
+    update cell
+    set cell_name = #{cellName,jdbcType=VARCHAR}
+    where cell_id = #{cellId,jdbcType=INTEGER}
+  </update>
+</mapper>

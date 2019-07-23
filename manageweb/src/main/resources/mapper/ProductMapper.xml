@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.IProductDao" >
+  <resultMap id="BaseResultMap" type="com.entity.Product" >
+    <id column="prid" property="prid" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="function" property="function" jdbcType="VARCHAR" />
+    <result column="endurance" property="endurance" jdbcType="INTEGER" />
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="cell_id" property="cellId" jdbcType="INTEGER" />
+    <result column="mAh" property="mah" jdbcType="INTEGER" />
+    <result column="W" property="w" jdbcType="INTEGER" />
+    <result column="time" property="time" jdbcType="INTEGER" />
+    <result column="V" property="v" jdbcType="VARCHAR" />
+    <result column="over_time" property="overTime" jdbcType="INTEGER" />
+    <result column="sound" property="sound" jdbcType="INTEGER" />
+    <result column="brush" property="brush" jdbcType="INTEGER" />
+    <result column="L" property="l" jdbcType="DOUBLE" />
+    <result column="KG" property="kg" jdbcType="INTEGER" />
+    <result column="describes" property="describes" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    prid, uid, function, endurance, type_id, cell_id, mAh, W, time, V, over_time, sound, 
+    brush, L, KG, describes
+  </sql>
+
+  <select id="selectPag" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select * from product
+    <where>
+      <if test="prid != null">
+        AND prid like #{prid}
+      </if>
+    </where>
+    LIMIT #{start},#{pagesize}
+  </select>
+
+  <select id="selectLike" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select * from product
+    WHERE prid like #{prid}
+  </select>
+
+  <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select COUNT(*)
+    FROM product
+    <where>
+      <if test="pname !=null">
+        AND prid like #{prid}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectAllProduct" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    from product
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from product
+    where prid = #{prid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from product
+    where prid = #{prid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.entity.Product" >
+    <selectKey keyProperty="prid" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into product (uid, function,
+      endurance, type_id, cell_id, 
+      mAh, W, time, V, 
+      over_time, sound, brush, 
+      L, KG, describes)
+    values (#{uid,jdbcType=INTEGER}, #{function,jdbcType=VARCHAR},
+      #{endurance,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER}, #{cellId,jdbcType=INTEGER}, 
+      #{mah,jdbcType=INTEGER}, #{w,jdbcType=INTEGER}, #{time,jdbcType=INTEGER}, #{v,jdbcType=VARCHAR}, 
+      #{overTime,jdbcType=INTEGER}, #{sound,jdbcType=INTEGER}, #{brush,jdbcType=INTEGER}, 
+      #{l,jdbcType=DOUBLE}, #{kg,jdbcType=INTEGER}, #{describes,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Product" >
+    insert into product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="prid != null" >
+        prid,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="function != null" >
+        function,
+      </if>
+      <if test="endurance != null" >
+        endurance,
+      </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="cellId != null" >
+        cell_id,
+      </if>
+      <if test="mah != null" >
+        mAh,
+      </if>
+      <if test="w != null" >
+        W,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="v != null" >
+        V,
+      </if>
+      <if test="overTime != null" >
+        over_time,
+      </if>
+      <if test="sound != null" >
+        sound,
+      </if>
+      <if test="brush != null" >
+        brush,
+      </if>
+      <if test="l != null" >
+        L,
+      </if>
+      <if test="kg != null" >
+        KG,
+      </if>
+      <if test="describes != null" >
+        describes,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="prid != null" >
+        #{prid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="function != null" >
+        #{function,jdbcType=VARCHAR},
+      </if>
+      <if test="endurance != null" >
+        #{endurance,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="cellId != null" >
+        #{cellId,jdbcType=INTEGER},
+      </if>
+      <if test="mah != null" >
+        #{mah,jdbcType=INTEGER},
+      </if>
+      <if test="w != null" >
+        #{w,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=INTEGER},
+      </if>
+      <if test="v != null" >
+        #{v,jdbcType=VARCHAR},
+      </if>
+      <if test="overTime != null" >
+        #{overTime,jdbcType=INTEGER},
+      </if>
+      <if test="sound != null" >
+        #{sound,jdbcType=INTEGER},
+      </if>
+      <if test="brush != null" >
+        #{brush,jdbcType=INTEGER},
+      </if>
+      <if test="l != null" >
+        #{l,jdbcType=DOUBLE},
+      </if>
+      <if test="kg != null" >
+        #{kg,jdbcType=INTEGER},
+      </if>
+      <if test="describes != null" >
+        #{describes,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.Product" >
+    update product
+    <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="function != null" >
+        function = #{function,jdbcType=VARCHAR},
+      </if>
+      <if test="endurance != null" >
+        endurance = #{endurance,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="cellId != null" >
+        cell_id = #{cellId,jdbcType=INTEGER},
+      </if>
+      <if test="mah != null" >
+        mAh = #{mah,jdbcType=INTEGER},
+      </if>
+      <if test="w != null" >
+        W = #{w,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=INTEGER},
+      </if>
+      <if test="v != null" >
+        V = #{v,jdbcType=VARCHAR},
+      </if>
+      <if test="overTime != null" >
+        over_time = #{overTime,jdbcType=INTEGER},
+      </if>
+      <if test="sound != null" >
+        sound = #{sound,jdbcType=INTEGER},
+      </if>
+      <if test="brush != null" >
+        brush = #{brush,jdbcType=INTEGER},
+      </if>
+      <if test="l != null" >
+        L = #{l,jdbcType=DOUBLE},
+      </if>
+      <if test="kg != null" >
+        KG = #{kg,jdbcType=INTEGER},
+      </if>
+      <if test="describes != null" >
+        describes = #{describes,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where prid = #{prid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.Product" >
+    update product
+    set uid = #{uid,jdbcType=INTEGER},
+      function = #{function,jdbcType=VARCHAR},
+      endurance = #{endurance,jdbcType=INTEGER},
+      type_id = #{typeId,jdbcType=INTEGER},
+      cell_id = #{cellId,jdbcType=INTEGER},
+      mAh = #{mah,jdbcType=INTEGER},
+      W = #{w,jdbcType=INTEGER},
+      time = #{time,jdbcType=INTEGER},
+      V = #{v,jdbcType=VARCHAR},
+      over_time = #{overTime,jdbcType=INTEGER},
+      sound = #{sound,jdbcType=INTEGER},
+      brush = #{brush,jdbcType=INTEGER},
+      L = #{l,jdbcType=DOUBLE},
+      KG = #{kg,jdbcType=INTEGER},
+      describes = #{describes,jdbcType=VARCHAR}
+    where prid = #{prid,jdbcType=INTEGER}
+  </update>
+</mapper>

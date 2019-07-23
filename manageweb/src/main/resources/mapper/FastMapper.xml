@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.FastDao" >
+  <resultMap id="BaseResultMap" type="com.entity.Fast" >
+    <id column="fast_id" property="fastId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    fast_id, name
+  </sql>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from fast
+
+  </select>
+
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from fast
+    where fname = #{fname}
+  </delete>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from fast
+    where fast_id = #{fastId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.entity.Fast" >
+    insert into fast (fast_id, name)
+    values (#{fastId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Fast" >
+    insert into fast
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fastId != null" >
+        fast_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fastId != null" >
+        #{fastId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.Fast" >
+    update fast
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where fast_id = #{fastId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.Fast" >
+    update fast
+    set name = #{name,jdbcType=VARCHAR}
+    where fast_id = #{fastId,jdbcType=INTEGER}
+  </update>
+</mapper>

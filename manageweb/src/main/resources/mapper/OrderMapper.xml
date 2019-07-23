@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.IOrderDao" >
+  <resultMap id="BaseResultMap" type="com.entity.Order" >
+    <id column="oid" property="oid" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="sort_id" property="sortId" jdbcType="INTEGER" />
+    <result column="gid" property="gid" jdbcType="INTEGER" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+    <result column="subtotal" property="subtotal" jdbcType="DOUBLE" />
+    <result column="total" property="total" jdbcType="DOUBLE" />
+    <result column="invoice" property="invoice" jdbcType="INTEGER" />
+    <result column="message" property="message" jdbcType="VARCHAR" />
+    <result column="otime" property="otime" jdbcType="TIMESTAMP" />
+    <result column="otype" property="otype" jdbcType="INTEGER" />
+    <result column="isno" property="isno" jdbcType="INTEGER" />
+    <result column="send" property="send" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    oid, uid, sort_id, gid, num, subtotal, total, invoice, message, otime, otype, isno, 
+    send
+  </sql>
+
+  <select id="selectAllOrder" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    *
+    from order_details
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from order_details
+    where oid = #{oid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from order_details
+    where oid = #{oid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.entity.Order" >
+    insert into order_details (oid, uid, sort_id, 
+      gid, num, subtotal, 
+      total, invoice, message, 
+      otime, otype, isno, 
+      send)
+    values (#{oid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{sortId,jdbcType=INTEGER}, 
+      #{gid,jdbcType=INTEGER}, #{num,jdbcType=INTEGER}, #{subtotal,jdbcType=DOUBLE}, 
+      #{total,jdbcType=DOUBLE}, #{invoice,jdbcType=INTEGER}, #{message,jdbcType=VARCHAR}, 
+      #{otime,jdbcType=TIMESTAMP}, #{otype,jdbcType=INTEGER}, #{isno,jdbcType=INTEGER}, 
+      #{send,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Order" >
+    insert into order_details
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="oid != null" >
+        oid,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="sortId != null" >
+        sort_id,
+      </if>
+      <if test="gid != null" >
+        gid,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="subtotal != null" >
+        subtotal,
+      </if>
+      <if test="total != null" >
+        total,
+      </if>
+      <if test="invoice != null" >
+        invoice,
+      </if>
+      <if test="message != null" >
+        message,
+      </if>
+      <if test="otime != null" >
+        otime,
+      </if>
+      <if test="otype != null" >
+        otype,
+      </if>
+      <if test="isno != null" >
+        isno,
+      </if>
+      <if test="send != null" >
+        send,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="oid != null" >
+        #{oid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="sortId != null" >
+        #{sortId,jdbcType=INTEGER},
+      </if>
+      <if test="gid != null" >
+        #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="subtotal != null" >
+        #{subtotal,jdbcType=DOUBLE},
+      </if>
+      <if test="total != null" >
+        #{total,jdbcType=DOUBLE},
+      </if>
+      <if test="invoice != null" >
+        #{invoice,jdbcType=INTEGER},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="otime != null" >
+        #{otime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="otype != null" >
+        #{otype,jdbcType=INTEGER},
+      </if>
+      <if test="isno != null" >
+        #{isno,jdbcType=INTEGER},
+      </if>
+      <if test="send != null" >
+        #{send,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.Order" >
+    update order_details
+    <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="sortId != null" >
+        sort_id = #{sortId,jdbcType=INTEGER},
+      </if>
+      <if test="gid != null" >
+        gid = #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="num != null" >
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="subtotal != null" >
+        subtotal = #{subtotal,jdbcType=DOUBLE},
+      </if>
+      <if test="total != null" >
+        total = #{total,jdbcType=DOUBLE},
+      </if>
+      <if test="invoice != null" >
+        invoice = #{invoice,jdbcType=INTEGER},
+      </if>
+      <if test="message != null" >
+        message = #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="otime != null" >
+        otime = #{otime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="otype != null" >
+        otype = #{otype,jdbcType=INTEGER},
+      </if>
+      <if test="isno != null" >
+        isno = #{isno,jdbcType=INTEGER},
+      </if>
+      <if test="send != null" >
+        send = #{send,jdbcType=INTEGER},
+      </if>
+    </set>
+    where oid = #{oid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.Order" >
+    update order_details
+    set uid = #{uid,jdbcType=INTEGER},
+      sort_id = #{sortId,jdbcType=INTEGER},
+      gid = #{gid,jdbcType=INTEGER},
+      num = #{num,jdbcType=INTEGER},
+      subtotal = #{subtotal,jdbcType=DOUBLE},
+      total = #{total,jdbcType=DOUBLE},
+      invoice = #{invoice,jdbcType=INTEGER},
+      message = #{message,jdbcType=VARCHAR},
+      otime = #{otime,jdbcType=TIMESTAMP},
+      otype = #{otype,jdbcType=INTEGER},
+      isno = #{isno,jdbcType=INTEGER},
+      send = #{send,jdbcType=INTEGER}
+    where oid = #{oid,jdbcType=INTEGER}
+  </update>
+</mapper>

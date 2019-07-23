@@ -1,0 +1,22 @@
+body {
+            padding: 80px;
+            background:url(img/login_bg.jpg) no-repeat;
+            background-attachment: fixed;
+            background-size:cover ;
+            
+        }
+       .container{
+        	width: 385px;
+        	height: 279px;
+        	background-image: url(img/formBg.png);
+        	border-bottom-left-radius:15px ;
+        	border-bottom-right-radius:18px ;
+        }
+        .form-horizontal{
+        	padding-top: 70px; 
+        	margin-left: 25px;
+        	margin-right: 25px;
+        }
+        input{
+        	text-align: center;
+        }

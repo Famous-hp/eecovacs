@@ -1,0 +1,28 @@
+
+		.top1{
+			border: 1px solid #3B3B1F;
+			border-radius:10px ;
+        
+		}
+		.top2{
+			
+			border: 1px solid #122B40;
+			
+		}
+		.top3 div{
+			height: 30px;
+			font: bold 14px/30px "微软雅黑";
+			background-color: #F6F7F9;
+			border: 1px solid #E3E3E3;
+		}
+		.top4{
+			border: 1px solid #E3E3E3;
+			vertical-align: middle;
+			font: bold 12px/30px "微软雅黑";
+		}
+		 .top4:nth-of-type(odd){
+				background-color: #F6F7F9;
+			}
+			.top4:hover{
+				background-color: #E9F9CA;
+			}

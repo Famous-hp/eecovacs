@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         id="WebApp_ID" version="3.0">
+  <display-name>manageweb</display-name>
+
+  <context-param>
+    <param-name>filePath</param-name>
+    <param-value>D:\sql\phpfind\WWW\img</param-value>
+  </context-param>
+  <context-param>
+    <param-name>webPath</param-name>
+    <param-value>http://localhost/img/</param-value>
+  </context-param>
+
+  <filter>
+    <filter-name>doFilter</filter-name><!--过滤器的方法名-->
+    <filter-class>com.action.PageFilter</filter-class><!--包名.类名-->
+  </filter>
+  <filter-mapping>
+    <filter-name>doFilter</filter-name><!--方法名-->
+    <!--定义规则-->
+    <url-pattern>/*</url-pattern>
+    <!--定义需要走过滤器的对象，此时是对所有url都必须走过滤器。如果只需要对jsp进行过滤，name就把/*换成/*.jsp，对于其他后缀也是一样-->
+  </filter-mapping>
+
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>
